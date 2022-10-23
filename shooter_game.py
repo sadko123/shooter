@@ -55,12 +55,12 @@ clock = time.Clock()
 FPS = 60
 
 mixer.init()
-mixer.music.load('space.ogg')
+mixer.music.load('music/space.ogg')
 mixer.music.play()
 
 window = display.set_mode((700, 500))
 
-background = image.load('galaxy.jpg')
+background = image.load('images/galaxy.jpg')
 background = transform.scale(background, (700, 500))
 
 run = True
