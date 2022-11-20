@@ -48,7 +48,7 @@ class Bullet(GameSprite):
         self.rect.y -= self.speed
         if self.rect.y - bullet_hight <= 0:
             self.kill()
-            print('Удаление')
+
 
 window_widht = 700
 window_hight = 500
@@ -95,11 +95,12 @@ win = font2.render('Вы выиграли' , True , (255, 215,0))
 lose = font2.render('Вы проиграли' , True , (255, 215,0))
 
 win_text = font1.render('Пропущенно: ' + str(lost_vrag), 1 , (255, 215,0))
-win_text2 = font1.render('Счёт:' + str(def_vrag), 1, (240, 215, 0))
+win_text2 = font2.render('Счёт:' + str(def_vrag), 1, (150, 150, 0))
 
 space_ship = Player(ship_image, ship_start_x, ship_start_y, (ship_wight, ship_hight), 10 )
 
 monsters = sprite.Group()
+
 for i in range(5):
     vrag_x = randint(0, window_widht - ship_wight)
     vrag_speed = randint(1, 4) 
@@ -142,8 +143,21 @@ while run:
             window.blit(lose, (250, 350))
             finish = True
             
-        
+        dead_vrag_list = sprite.groupcollide(monsters, bullet_group, True, True)
 
+        for monster in dead_vrag_list:
+            def_vrag += 1
+            print(def_vrag)
+            win_text2 = font1.render('Счёт:' + str(def_vrag), 1, (150, 150, 0))
+            vrag_x = randint(0, window_widht - ship_wight)
+            vrag_speed = randint(1, 4) 
+            vrag = Enemy(vrag_image, vrag_x, vrag_start_y, (vrag_widht, vrag_hight), vrag_speed)
+            monsters.add(vrag)
+
+        if def_vrag >= 5:
+            print('выиграли')
+            window.blit(win, (250, 350))
+            finish = True
             
         
         display.update()
